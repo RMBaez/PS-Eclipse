@@ -204,7 +204,8 @@ Answer: script.ps1 <br/>
 
 
 <p align="center">
-    The IDs are shown based on the previous search bar filter. Go one by one looking at the different exectuables.
+    I copied the MD5 hash of the file "script.ps1" and pasted it into VirusTotal. I went under the details section and found the answer.
+<img width="1440" alt="Screenshot 2025-04-22 at 11 09 24 PM" src="https://github.com/user-attachments/assets/73e51ccc-0d35-4049-b911-6c5f3dc6fec3" />
 
 
 
@@ -212,7 +213,7 @@ Answer: script.ps1 <br/>
 
 <br />
 <br />
-Answer: 2147735503,2147737010,2147737007,2147737394 <br/>
+Answer: BlackSun.ps1<br/>
 
 
 
@@ -222,22 +223,18 @@ Answer: 2147735503,2147737010,2147737007,2147737394 <br/>
 <h2>Program walk-through</h2>
 
 <b>Answer the question below <br/>
-9. 
+9. A ransomware note was saved to disk, which can serve as an IOC. What is the full path to which the ransom note was saved?
 
 <p align="center">
-   I knew I had to go to a new directory under the same user so I put into the search bar ' index=main C:\\Users\\Finance01\\AppData '.
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/2a897bd0-cf91-4dd0-a9a7-44acc094b758" />
-    I went to the field Images and looked at the results. There were two with a high count. I did not know which binary was malicious or if either of them where. I did google searches on them and found that one of them was an adware.
-<img width="1440" alt="Screenshot 2025-04-21 at 12 14 24 PM" src="https://github.com/user-attachments/assets/fd28f46d-9115-4392-8e1e-f56f7cfe759d" />
-
-
+   The question said it was saved to a disk so on the search bar, I typed '.txt*' since files are usually text files. The first result contained the name of the malicious file therefore, the full path of the file.
+<img width="1440" alt="Screenshot 2025-04-22 at 11 19 28 PM" src="https://github.com/user-attachments/assets/a9c53780-3247-4c03-934f-6775602cf95a" />
 
 
 
 
 <br />
 <br />
-Answer: C:\Users\Finance01\AppData\Roaming\EasyCalc\EasyCalc.exe<br/>
+Answer: C:\Users\keegan\Downloads\vasg6b0wmw029hd\BlackSun_README.txt<br/>
 
 
 
@@ -245,11 +242,12 @@ Answer: C:\Users\Finance01\AppData\Roaming\EasyCalc\EasyCalc.exe<br/>
 <h2>Program walk-through</h2>
 
 <b>Answer the question below <br/>
-10.
+10.The script saved an image file to disk to replace the user's desktop wallpaper, which can also serve as an IOC. What is the full path of the image?
 
 <p align="center">
-   I plugged in the search 'index=main C:\Users\Finance01\AppData\Roaming\EasyCalc\EasyCalc.exe'. To get the full picture of the path, I went to the field 'ImageLoaded'. There I was able the dll files.
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/168384e1-d50c-47a7-91d7-1d6f04e54437" />
+   The question said that the script was saved as an image. I first tried typing '.png*' and got no hit. I then tried '.jpg*' and got 2 hits. I looked and saw a jpg file with the name of the malicious file
+<img width="1440" alt="Screenshot 2025-04-22 at 11 26 40 PM" src="https://github.com/user-attachments/assets/951344af-b0bc-4bc9-8e7b-d6b25a210395" />
+
 
 
 
@@ -259,4 +257,4 @@ Answer: C:\Users\Finance01\AppData\Roaming\EasyCalc\EasyCalc.exe<br/>
 
 <br />
 <br />
-Answer: ffmpeg.dll,nw.dll,nw_elf.dll<br/>
+Answer: C:\Users\Public\Pictures\blacksun.jpg<br/>
