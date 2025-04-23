@@ -114,18 +114,18 @@ Answer: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe <br/>
 <h2>Program walk-through</h2>
 
 <b>Answer the question below <br/>
-4. 
+4. What command was executed to configure the suspicious binary to run with elevated privileges?
 
 <p align="center">
-    I filtered the binary 'IonicLarge.exe' into the search bar. I went to the field 'DestinationIp' and look for any connection(s) made twice to the same ip. Only one did. Defang the ip and that is the answer.
-<img width="1440" alt="Screenshot 2025-04-21 at 10 09 58 AM" src="https://github.com/user-attachments/assets/c983acea-f9a5-430d-a2c1-225c11cdf949" />
+    I went back to 'OUTSTANDING_GUTTER.exe' in the search bar and added powershell in the search and pressed enter. I looked at the 'CommandLine' field. One of them had the word 'CREATE'. I figured the attacker had to create the means to have elevated privileges. I copy and pasted the command and it was the right answer.
+<img width="1440" alt="Screenshot 2025-04-22 at 10 20 36 PM" src="https://github.com/user-attachments/assets/d2f8f7dd-b9e4-4dff-8c0d-6b31032a39be" />
 
 
 
 
 <br />
 <br />
-Answer: 2[.]56[.]59[.]42 <br/>
+Answer: 2"C:\Windows\system32\schtasks.exe" /Create /TN OUTSTANDING_GUTTER.exe /TR C:\Windows\Temp\COUTSTANDING_GUTTER.exe /SC ONEVENT /EC Application /MO *[System/EventID=777] /RU SYSTEM /f <br/>
 
 
 
@@ -133,41 +133,22 @@ Answer: 2[.]56[.]59[.]42 <br/>
 
 <b>Answer the question below <br/>
 
-5. 
+5. What permissions will the suspicious binary run as? What was the command to run the binary with elevated privileges? (Format: User + ; + CommandLine)
 
 <p align="center">
-    I filtered the binary 'IonicLarge.exe' into the search bar. I then went to the field 'EventType' and added 'CreateKey' filter into the search bar. The first event contained the answer
-    <img width="1440" alt="Screenshot 2025-04-21 at 10 31 12 AM" src="https://github.com/user-attachments/assets/7fe1dc3a-d543-4284-af55-5a0633a28507" />
-
-
-
-
-
-<br />
-<br />
-Answer:  HKLM\SOFTWARE\Policies\Microsoft\Windows Defender<br/>
-
-
-
-
-
-
-<h2>Program walk-through</h2>
-
-<b>Answer the question below <br/>
-
-6. 
-
-<p align="center">
-    There was a hint to this question and it said Process were killed with 'taskkill /im'. I added it into the search bar. Received 5 events. I went to the field 'CommandLine' where the answer could be found.
-<img width="1440" alt="Screenshot 2025-04-21 at 10 52 16 AM" src="https://github.com/user-attachments/assets/003c3e7d-b529-4f79-8671-d26cde9b80a0" />
+     I left 'OUTSTANDING_GUTTER.exe powershell' in the search bar. I was first looking for the username so I went to the field 'User' and found it.
+<img width="1440" alt="Screenshot 2025-04-22 at 10 34 57 PM" src="https://github.com/user-attachments/assets/9190100a-aa36-4818-8a1d-ba3778f69bef" />
+    I discovered the command in an earlier question.
+<img width="1440" alt="Screenshot 2025-04-22 at 10 35 46 PM" src="https://github.com/user-attachments/assets/798c73ff-f63b-4687-b6f1-1f836ed7c0b7" />
+    Put the 2 together and there is the answer
 
 
 
 
 <br />
 <br />
-Answer: WvmIOrcfsuILdX6SNwIRmGOJ.exe, phcIAmLJMAIMSa9j9MpgJo1m.exe <br/>
+Answer:  NT AUTHORITY\SYSTEM;"C:\Windows\system32\schtasks.exe" /Run /TN OUTSTANDING_GUTTER.exe<br/>
+
 
 
 
@@ -176,11 +157,12 @@ Answer: WvmIOrcfsuILdX6SNwIRmGOJ.exe, phcIAmLJMAIMSa9j9MpgJo1m.exe <br/>
 <h2>Program walk-through</h2>
 
 <b>Answer the question below <br/>
-7. 
+
+6. The suspicious binary connected to a remote server. What address did it connect to? Add http:// to your answer & defang the URL.
 
 <p align="center">
-     I added powershell into the search since I was looking for a powershell command. I need to organize the data some more so I added the command “| Table _time CommandLine” to make a list and "| dedup CommandLine" to remove duplicates.
-  <img width="1440" alt="Screenshot 2025-04-21 at 11 13 10 AM" src="https://github.com/user-attachments/assets/4a2cc1fa-e7a0-4abe-bc51-ff81befe9c7a" />
+    The binary is already known so I put 'OUTSTANDING_GUTTER.exe' into the search bar. I looking for an address similiar to the one found in an earlier question. Under the field name 'QueryName', I found the answer.
+<img width="1440" alt="Screenshot 2025-04-22 at 10 51 17 PM" src="https://github.com/user-attachments/assets/ed12fc1a-d765-4eea-a02e-597cec8d14cd" />
 
 
 
@@ -188,7 +170,8 @@ Answer: WvmIOrcfsuILdX6SNwIRmGOJ.exe, phcIAmLJMAIMSa9j9MpgJo1m.exe <br/>
 
 <br />
 <br />
-Answer: powershell WMIC /NAMESPACE:\\root\Microsoft\Windows\Defender PATH MSFT_MpPreference call Add ThreatIDDefaultAction_Ids=2147737394 ThreatIDDefaultAction_Actions=6 Force=True <br/>
+Answer: hxxp[://]9030-181-215-214-32[.]ngrok[.]io <br/>
+
 
 
 
@@ -196,7 +179,27 @@ Answer: powershell WMIC /NAMESPACE:\\root\Microsoft\Windows\Defender PATH MSFT_M
 <h2>Program walk-through</h2>
 
 <b>Answer the question below <br/>
-8.
+7. A PowerShell script was downloaded to the same location as the suspicious binary. What was the name of the file?
+
+<p align="center">
+     I typed ps.1* into the search bar since powershell commands end as such. The answer was the first event and appeared.
+  <img width="1440" alt="Screenshot 2025-04-22 at 10 58 24 PM" src="https://github.com/user-attachments/assets/da17661e-425e-43b1-9109-e3d75135bad1" />
+
+
+
+
+
+<br />
+<br />
+Answer: script.ps1 <br/>
+
+
+
+
+<h2>Program walk-through</h2>
+
+<b>Answer the question below <br/>
+8.The malicious script was flagged as malicious. What do you think was the actual name of the malicious script?
 
 
 
