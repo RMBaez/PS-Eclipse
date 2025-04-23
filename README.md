@@ -47,17 +47,18 @@ Your manager has tasked you to check the events in Splunk to determine what occu
 1. A suspicious binary was downloaded to the endpoint. What was the name of the binary?
 
 <p align="center">
-  First, I adjusted the time to All TIme and in Verbose mode. Then on the search bar I wrote down ' index=main password viewer '.
-<img width="1440" alt="Screenshot 2025-04-21 at 9 06 15 AM" src="https://github.com/user-attachments/assets/838a279e-be52-4ecf-8a65-b86ab590429d" />
-  I went to the CommandLine field which only had one result. I clicked it and saw two commands but only one was an executable.
-<img width="1440" alt="Screenshot 2025-04-21 at 9 07 53 AM" src="https://github.com/user-attachments/assets/6c552bae-9d11-4a7c-bff9-a2a06887465f" />
+  First, I adjusted the time to All Time and in Verbose mode. Then on the search bar I wrote down ' index=* '.
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/c4dbb25b-5290-4b47-b8a5-a47940d94961" />
+  I then scrolled to the interestin field "Images" to look for any thing suspicious. I found one in the TEMP folder. I plugged that one in and it was the correct answer.
+<img width="1440" alt="Screenshot 2025-04-22 at 9 34 12 PM" src="https://github.com/user-attachments/assets/1200151c-57de-4fba-8497-230bd8770972" />
+
 
 
 
 
 <br />
 <br />
-Answer: C:\Users\FINANC~1\AppData\Local\Temp\11111.exe  <br/>
+Answer: OUTSTANDING_GUTTER.exe<br/>
 
 
 
@@ -66,11 +67,16 @@ Answer: C:\Users\FINANC~1\AppData\Local\Temp\11111.exe  <br/>
 <h2>Program walk-through</h2>
 
 <b>Answer the question below <br/>
-2. 
+2. What is the address the binary was downloaded from? Add http:// to your answer & defang the URL.
 
 <p align="center">
-   I added the command line from question 1 into the search bar. I looked at the field Company and there was the answer.
-<img width="1440" alt="Screenshot 2025-04-21 at 9 12 34 AM" src="https://github.com/user-attachments/assets/30e436b2-efd9-4bc0-87f8-df7ca36790e8" />
+   I put into the search bar 'OUTSTANDING_GUTTER.exe'. Then I went to the field 'CommandLine". I saw a command that had the suspicious binary running on a schedule
+<img width="1440" alt="Screenshot 2025-04-22 at 9 45 41 PM" src="https://github.com/user-attachments/assets/d88df8c9-e1af-498d-ba74-4ae51d17af53" />
+    I looked a bit deeper into the events and saw this guy
+<img width="1440" alt="Screenshot 2025-04-22 at 9 58 50 PM" src="https://github.com/user-attachments/assets/a14a9237-5f06-4805-a07b-55810d5bf305" />
+    I copied and pasted the encoded command into cyberchief. I put in the following operations in the recipe field of cyberchief.. From Base64, Decode Text, and Defang. The Answer is highlighted in green
+<img width="1440" alt="Screenshot 2025-04-22 at 10 02 35 PM" src="https://github.com/user-attachments/assets/d583c867-aa16-41de-9d55-cbd8cdd6a291" />
+
 
 
 
@@ -79,7 +85,7 @@ Answer: C:\Users\FINANC~1\AppData\Local\Temp\11111.exe  <br/>
 
 <br />
 <br />
-Answer: NirSoft<br/>
+Answer: hxxp[://]886e-181-215-214-32[.]ngrok[.]io<br/>
 
 
 
@@ -87,22 +93,18 @@ Answer: NirSoft<br/>
 <h2>Program walk-through</h2>
 
 <b>Answer the question below <br/>
-3. 
+3. What Windows executable was used to download the suspicious binary? Enter full path.
 
 <p align="center">
-    I removed the previous search filters except for 'index=main'. I added 'EventCode=1' since it is for process creation. I went to the field CurrentDirectory and selceted 'C:\Users\Finance01\AppData\Local\Temp\'.
-<img width="1440" alt="Screenshot 2025-04-21 at 9 52 47 AM" src="https://github.com/user-attachments/assets/86c55c55-cbdb-4610-8036-f93309667154" />
-    I went down to the field 'Images" which contained the answer to the first question. I selected and clicked on the result 'C:\Users\Finance01\AppData\Local\Temp\IonicLarge.exe'.
-<img width="1440" alt="Screenshot 2025-04-21 at 10 00 11 AM" src="https://github.com/user-attachments/assets/56f81ac3-a934-4cd0-bb6c-9c66c5953ce8" />
-    I went dow to the field 'OriginalFileName which one had one result. That was the answer to the second question.
-<img width="1440" alt="Screenshot 2025-04-21 at 10 02 51 AM" src="https://github.com/user-attachments/assets/3e3a6333-2351-4587-96da-85ae43962afe" />
-
+   I went back to 'OUTSTANDING_GUTTER.exe' in the search bar, pressed enter and looked foerexecutable commands on powershell and found this which contains the answer
+<img width="1440" alt="Screenshot 2025-04-22 at 10 12 47 PM" src="https://github.com/user-attachments/assets/da8c4839-a708-4202-a59e-ce6ed9ebf6f5" />
+  
 
 
 
 <br />
 <br />
-Answer: IonicLarge.exe,PalitExplorer.exe <br/>
+Answer: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe <br/>
 
 
 
